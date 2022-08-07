@@ -32,7 +32,6 @@ class Tree
     end
 
     def insert(value, node = @root)
-        p node.data
        if value < node.data
         node.left.nil? ? node.left = Node.new(value) : insert(value, node.left)        
        else 
@@ -82,6 +81,20 @@ class Tree
         end
     end
 
+    def level_order(node = @root, queue = [], &block)
+        if block_given?            
+            yield(node.data)
+        else 
+            print "#{node.data}"
+        end
+        queue << node.left unless node.left.nil?
+        queue << node.right unless node.right.nil?
+        return if queue.empty?
+        level_order(queue.shift, queue, &block)       
+    end
+
+  
+
 
 end
 
@@ -90,8 +103,13 @@ end
 k = Tree.new([1,2,3,5,6,7,8])
 
 #k.insert(9)
-#k.pretty_print
+k.pretty_print
 
+k.level_order do |value|
+    puts "this is #{value}"
+end
+
+p k.level_order
 
 
 
@@ -102,11 +120,20 @@ k = Tree.new([1,2,3,5,6,7,8])
 
 
 j = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
-p j.pretty_print
+#p j.pretty_print
 
 #j.delete(67)
+ #j.insert(89)
 
-p j.find(67)
+ #j.insert(213)
+
+ #j.insert(893123)
+
+ #j.insert(819)
+ #p j.pretty_print
+
+
+
 
 
 
