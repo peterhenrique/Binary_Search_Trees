@@ -93,9 +93,32 @@ class Tree
         level_order(queue.shift, queue, &block)       
     end
 
-  
+    def inorder(node = @root, queue = [], &block)
+        return if node.nil?     
+        inorder(node.left)
+        print node.data
+        inorder(node.right)
+    end
+
+    def preorder(node = @root)
+        return if node.nil?     
+
+        print node.data
+        preorder(node.left)
+        preorder(node.right)
+    end
+
+    def postorder(node = @root)
+        return if node.nil?
+        postorder(node.left)     
+
+        postorder(node.right)
+        print node.data
 
 
+
+
+    end
 end
 
 
@@ -103,24 +126,35 @@ end
 k = Tree.new([1,2,3,5,6,7,8])
 
 #k.insert(9)
-k.pretty_print
+#k.pretty_print
 
-k.level_order do |value|
-    puts "this is #{value}"
-end
+#k.level_order do |value|
+    #puts "this is #{value}"
+#end
 
-p k.level_order
+#p k.level_order
+
+p k.inorder
+
+p k.preorder
+
+p k.postorder
+
+
 
 
 
 #k.delete(1)
 #k.delete(6)
 
-#k.pretty_print
+k.pretty_print
 
 
-j = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
+j = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324].sort)
+
 #p j.pretty_print
+#p j.inorder
+
 
 #j.delete(67)
  #j.insert(89)
