@@ -114,19 +114,57 @@ class Tree
 
         postorder(node.right)
         print node.data
-
-
-
-
     end
+
+    def height(node = @root, height = 0)
+        if node.nil?
+            return height-1  
+        else
+            left_height = height(node.left, height+1)
+            right_height = height(node.right, height+1)
+            return total_height = left_height != right_height ? [left_height, right_height].max : left_height      
+        end
+    end
+
+    def depth(value, node = @root, height = 0)
+        new_node = find(value)
+        height(new_node)
+    end
+    def balanced?(node = @root)
+        if node.nil?
+            return height-1  
+        else
+            left_height = height(node.left, height+1)
+            right_height = height(node.right, height+1)
+            (left_height - right_height).abs < 2 ? true : false   
+        end
+    end
+
 end
 
 
 
 k = Tree.new([1,2,3,5,6,7,8])
+#p k.height
+p k.balanced?
 
-#k.insert(9)
-#k.pretty_print
+
+
+k.insert(9)
+
+p k.balanced?
+
+k.insert(19)
+p k.balanced?
+
+
+#p "height is #{k.height}"
+#p k.depth(3)
+#p k.depth(7)    
+#p k.depth(8)
+
+
+k.pretty_print
 
 #k.level_order do |value|
     #puts "this is #{value}"
@@ -134,11 +172,12 @@ k = Tree.new([1,2,3,5,6,7,8])
 
 #p k.level_order
 
-p k.inorder
+#p k.inorder
 
-p k.preorder
+#p k.preorder
 
-p k.postorder
+#p k.postorder
+
 
 
 
@@ -147,19 +186,26 @@ p k.postorder
 #k.delete(1)
 #k.delete(6)
 
-k.pretty_print
+#k.pretty_print
 
 
 j = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324].sort)
 
-#p j.pretty_print
+p j.balanced?
+
+p j.pretty_print
 #p j.inorder
 
 
-#j.delete(67)
- #j.insert(89)
+j.insert(89)
 
- #j.insert(213)
+j.insert(213)
+
+p j.pretty_print
+    
+
+#p j.balanced?
+
 
  #j.insert(893123)
 
